@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="red">#F00</color>
+
+    <!-- theme -->
+    <color name="primary">#3F51B5</color>
+    <color name="primary_dark">#303F9F</color>
+    <color name="primary_light">#C5CAE9</color>
+    <color name="accent">#FF5722</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#727272</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#B6B6B6</color>
+
+    <color name="grey_700">#646464</color>
+    <color name="window_background">#FFF5F5F5</color>
+
+    <!-- gray scale -->
+    <color name="background">#585050</color>
+    <color name="background_dark">@color/primary</color>
+    <color name="background_about">#5a5252</color>
+    <color name="background_about_libs">#FFE7E7E5</color>
+    <color name="background_about_title">#FFE7E7E5</color>
+    <color name="background_image">#585050</color>
+    <!--color name="divider">#6b6161</color-->
+    <color name="default_text">#FFE7E7E5</color>
+    <color name="default_text_dark">#191919</color>
+    <color name="common_border">#88ffffff</color>
+    <color name="separator">#5c5c5c</color>
+    <color name="search_result">#ededed</color>
+    <color name="page_indicator_dark">#80333333</color>
+    <color name="page_indicator_dark_selected">#ff333333</color>
+    <color name="navigation_bar">@color/primary</color>
+</resources>

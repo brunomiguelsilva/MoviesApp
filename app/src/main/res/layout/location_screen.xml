@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/location_screen_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="450dp"
+        tools:context="movies.flag.pt.moviesapp.ui.screens.LocationScreen" />
+
+    <TextView
+        android:id="@+id/location_screen_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/location_screen_map"
+        android:drawableStart="@drawable/ic_home"
+        android:text="Praça Duque de Saldanha, 1050-094 Lisboa"
+        android:textColor="#000000"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/location_screen_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+351 966664806"
+        android:layout_below="@+id/location_screen_address"
+        android:layout_alignParentStart="true"
+        android:drawableStart="@drawable/ic_phone"
+        android:clickable="true"
+        android:textColor="#2566e7"
+        android:textColorLink="#2566e7"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/location_screen_facebook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_facebook"
+        android:autoLink="web"
+        android:text="facebook.com/FLAG.PT/"
+        android:textColor="#2566e7"
+        android:textColorLink="#2566e7"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/location_screen_phone"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/location_screen_instagram"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_instagram"
+        android:autoLink="web"
+        android:text="instagram.com/flag.pt/"
+        android:textColor="#2566e7"
+        android:layout_below="@+id/location_screen_facebook"
+        android:layout_alignParentStart="true"
+        android:textColorLink="#2566e7"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/location_screen_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_mail"
+        android:text="querosabermais@flag.pt"
+        android:autoLink="email"
+        android:textColor="#2566e7"
+        android:layout_below="@+id/location_screen_address"
+        android:layout_alignParentEnd="true"
+        android:textColorLink="#2566e7"
+        android:layout_marginTop="10dp" />
+
+</RelativeLayout>
+
+
+
+
+

@@ -1,0 +1,22 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/tv_shows_screen_fragment_swipe_container"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <ListView
+            android:id="@+id/tv_shows_screen_fragment_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:orientation="vertical">
+        </ListView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</RelativeLayout>

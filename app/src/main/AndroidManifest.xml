@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="movies.flag.pt.moviesapp">
+
+    <!-- Permissions Declaration -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:name=".MoviesApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher_flag"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- Activities Declaration -->
+        <activity android:name=".ui.screens.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.screens.MainScreen"
+            android:label="@string/title_main_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.screens.DetailImageFullScreen"
+            android:label="@string/title_main_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.screens.LocationScreen" />
+        <activity android:name=".ui.screens.SearchScreen" />
+
+        <!-- Database Configurations -->
+        <meta-data
+            android:name="DATABASE"
+            android:value="movies_database.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="movies.flag.pt.moviesapp.database.entities" />
+
+        <!-- Google API Configurations -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".ui.screens.SettingsScreen"
+            android:label="@string/title_activity_settings_screen"></activity>
+    </application>
+
+</manifest>
