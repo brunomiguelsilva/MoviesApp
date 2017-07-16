@@ -21,7 +21,7 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/list_item_footer"
+        android:id="@+id/movies_screen_fragment_list_item_footer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

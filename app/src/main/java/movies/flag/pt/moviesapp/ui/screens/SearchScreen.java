@@ -24,6 +24,7 @@ public class SearchScreen extends BaseScreen {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_screen);
+        setTitle(R.string.action_search);
 
         findViews();
         addListeners();

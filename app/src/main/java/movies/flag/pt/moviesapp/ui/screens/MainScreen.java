@@ -5,7 +5,6 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
@@ -26,12 +25,12 @@ public class MainScreen extends BaseScreen
         implements NavigationView.OnNavigationItemSelectedListener {
 
     //region: Fields Declaration
+    private static final String KEY_SEARCH = "Search";
     private final int REQUEST_CODE = 1;
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView navigationView;
-    private Snackbar snackbar;
     //endregion
 
     //region: Override Methods.
@@ -45,7 +44,7 @@ public class MainScreen extends BaseScreen
         Fragment fragment;
         fragment = new MoviesScreenFragment();
         Bundle args = new Bundle();
-        args.putString("SEARCH", "");
+        args.putString(KEY_SEARCH, "");
         fragment.setArguments(args);
         replaceFragment(fragment);
 
@@ -86,7 +85,7 @@ public class MainScreen extends BaseScreen
                 Fragment fragment;
                 fragment = new MoviesScreenFragment();
                 Bundle args = new Bundle();
-                args.putString("SEARCH", theResponse);
+                args.putString(KEY_SEARCH, theResponse);
                 fragment.setArguments(args);
                 replaceFragment(fragment);
             }
@@ -170,20 +169,12 @@ public class MainScreen extends BaseScreen
         } else if (id == R.id.nav_search) {
             Intent intent = new Intent(this, SearchScreen.class);
             startActivityForResult(intent, REQUEST_CODE);
-            /*
-            Fragment fragment;
-            fragment = new MoviesScreenFragment();
-            Bundle args = new Bundle();
-            args.putString("SEARCH", "ROCKY");
-            fragment.setArguments(args);
-            replaceFragment(fragment);
-            */
         } else if (id == R.id.nav_info) {
             Intent intent = new Intent(this, LocationScreen.class);
             startActivity(intent);
-        } else if (id == R.id.nav_settings) {
-            Intent intent = new Intent(this, SettingsScreen.class);
-            startActivity(intent);
+        //} else if (id == R.id.nav_settings) {
+        //    Intent intent = new Intent(this, SettingsScreen.class);
+        //    startActivity(intent);
         } else if (id == R.id.nav_close) {
             Intent intent = new Intent(movies.flag.pt.moviesapp.ui.screens.BaseScreen.Constants.FINISH_SCREEN_ACTION);
             LocalBroadcastManager.getInstance(MainScreen.this).sendBroadcast(intent);
@@ -192,7 +183,6 @@ public class MainScreen extends BaseScreen
         //Set the action bar title
         setActionBarTitle(item);
 
-        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

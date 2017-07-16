@@ -38,9 +38,10 @@ import movies.flag.pt.moviesapp.utils.DLog;
 public class MoviesScreenFragment extends BaseScreenFragment {
 
     //region: Fields Declaration
-    private static final String KEY_MOVIES_LIST = "Movies_List";
+    private static final String KEY_LIST = "List";
     private static final String KEY_PAGE_SELECTION = "Page_Selection";
     private static final String KEY_LIST_SELECTION = "Page_Selection";
+    private static final String KEY_SEARCH = "Search";
     private static final int FIRST_PAGE = 1;
 
 
@@ -60,7 +61,6 @@ public class MoviesScreenFragment extends BaseScreenFragment {
     public static MoviesScreenFragment newInstance() {
         MoviesScreenFragment fragment = new MoviesScreenFragment();
         Bundle args = new Bundle();
-        //args.putSerializable(listView);
         fragment.setArguments(args);
         return fragment;
     }
@@ -71,7 +71,7 @@ public class MoviesScreenFragment extends BaseScreenFragment {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         if(args != null){
-            searchString = args.getString("SEARCH");
+            searchString = args.getString(KEY_SEARCH);
         }
     }
 
@@ -86,7 +86,7 @@ public class MoviesScreenFragment extends BaseScreenFragment {
         if(savedInstanceState != null)
         {
             DLog.d(tag, "Get Movies from savedInstanceState");
-            movies = savedInstanceState.getParcelableArrayList(KEY_MOVIES_LIST);
+            movies = savedInstanceState.getParcelableArrayList(KEY_LIST);
             adapter = new MoviesListAdapter(getActivity(), movies);
             listView.setAdapter(adapter);
             currentPage = savedInstanceState.getInt(KEY_PAGE_SELECTION);
@@ -102,12 +102,11 @@ public class MoviesScreenFragment extends BaseScreenFragment {
             if (searchString.isEmpty()) {
                 executeGetNowPlayingRequest(FIRST_PAGE);
             } else {
-                executeSearchMoviesRequest(searchString);
+                executeSearchMoviesRequest(searchString, FIRST_PAGE);
             }
-
         }
 
-        checkNetwork();
+        //checkNetwork();
 
         return view;
     }
@@ -116,7 +115,7 @@ public class MoviesScreenFragment extends BaseScreenFragment {
     public void onSaveInstanceState(Bundle outState) {
         try {
             ArrayList<Movie> arrayMovie = new ArrayList<>(movies);
-            outState.putParcelableArrayList(KEY_MOVIES_LIST, arrayMovie);
+            outState.putParcelableArrayList(KEY_LIST, arrayMovie);
             outState.putInt(KEY_PAGE_SELECTION, currentPage);
             outState.putInt(KEY_LIST_SELECTION, currentFirstVisibleItem + currentVisibleItemCount);
         }
@@ -130,7 +129,11 @@ public class MoviesScreenFragment extends BaseScreenFragment {
     @Override
     protected void refreshData() {
         DLog.d(tag, "ASK FOR DATA");
-        executeGetNowPlayingRequest(FIRST_PAGE);
+        if (searchString.isEmpty()) {
+            executeGetNowPlayingRequest(FIRST_PAGE);
+        } else {
+            executeSearchMoviesRequest(searchString, FIRST_PAGE);
+        }
     }
     //endregion
 
@@ -138,7 +141,7 @@ public class MoviesScreenFragment extends BaseScreenFragment {
     private void findViews(View view) {
         rootView = (RelativeLayout)view.findViewById(R.id.movies_screen_fragment_root_view);
         listView = (ListView)view.findViewById(R.id.movies_screen_fragment_list_view);
-        footer = (RelativeLayout)view.findViewById(R.id.list_item_footer);
+        footer = (RelativeLayout)view.findViewById(R.id.movies_screen_fragment_list_item_footer);
         footer.setVisibility(View.GONE);
         swipeLayout = (SwipeRefreshLayout)view.findViewById(R.id.movies_screen_fragment_swipe_container);
         swipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -152,7 +155,8 @@ public class MoviesScreenFragment extends BaseScreenFragment {
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 final int lastItem = currentFirstVisibleItem + currentVisibleItemCount;
                 if (lastItem == totalItem && scrollState == SCROLL_STATE_IDLE){
-                    loadNextPage(currentPage + 1);
+                    currentPage++;
+                    loadNextPage(currentPage);
                 }
             }
 
@@ -167,16 +171,23 @@ public class MoviesScreenFragment extends BaseScreenFragment {
             @Override
             public void onRefresh() {
                 currentVisibleItemCount = 0;
-                executeGetNowPlayingRequest(FIRST_PAGE);
+                if (searchString.isEmpty()) {
+                    executeGetNowPlayingRequest(FIRST_PAGE);
+                } else {
+                    executeSearchMoviesRequest(searchString, FIRST_PAGE);
+                }
             }
         });
     }
 
     private void loadNextPage(int page) {
         DLog.d(tag, "Load page: " + page);
-        executeGetNowPlayingRequest(page);
+        if (searchString.isEmpty()) {
+            executeGetNowPlayingRequest(page);
+        } else {
+            executeSearchMoviesRequest(searchString, page);
+        }
     }
-
 
     private void executeGetNowPlayingRequest(int page) {
         new GetNowPlayingMoviesAsyncTask(getActivity(), page){
@@ -199,7 +210,7 @@ public class MoviesScreenFragment extends BaseScreenFragment {
 
                 if (moviesResponse.getPage() == FIRST_PAGE) {
                     adapter = new MoviesListAdapter(getActivity(), movies);
-                    List<MovieDbEntity> books = MovieDbEntity.listAll(MovieDbEntity.class);
+                    List<MovieDbEntity> list = MovieDbEntity.listAll(MovieDbEntity.class);
                     MovieDbEntity.deleteAll(MovieDbEntity.class);
                 } else {
                     adapter.addAll(movies);
@@ -232,9 +243,24 @@ public class MoviesScreenFragment extends BaseScreenFragment {
             protected void onNetworkError() {
                 DLog.d(tag, "onNetworkError");
                 swipeLayout.setRefreshing(false);
+                List<MovieDbEntity> list = MovieDbEntity.listAll(MovieDbEntity.class);
+                DLog.d(tag, "Total de Registos: " + list.size());
+
+                movies = new ArrayList<>();
+
+                for (MovieDbEntity movieEntity : list) {
+                    Movie movie = new Movie();
+                    movie.setTitle(movieEntity.getTitle());
+                    movie.setOverview(movieEntity.getOverview());
+                    movie.setReleaseDate(movieEntity.getRelease_date());
+                    movie.setPopularity(movieEntity.getPopularity());
+                    movie.setVoteAverage(movieEntity.getVote_average());
+                    movies.add(movie);
+                }
+                adapter = new MoviesListAdapter(getActivity(), movies);
+                listView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
                 footer.setVisibility(View.GONE);
-                // Here i now that some error occur when processing the request,
-                // possible my internet connection if turned off
             }
 
 
@@ -245,8 +271,8 @@ public class MoviesScreenFragment extends BaseScreenFragment {
         }.execute();
     }
 
-    private void executeSearchMoviesRequest(String searchString) {
-        new SearchMoviesAsyncTask(getActivity(), searchString, 1){
+    private void executeSearchMoviesRequest(String searchString, int page) {
+        new SearchMoviesAsyncTask(getActivity(), searchString, page){
 
             @Override
             protected void onResponseSuccess(MoviesResponse moviesResponse) {

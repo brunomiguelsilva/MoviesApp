@@ -157,8 +157,8 @@ public class MoviesScreenFragmentDetail extends BaseScreenFragment {
             shareIntent.setType("text/plain");
             shareIntent.setAction(Intent.ACTION_SEND);
             StringBuilder sb = new StringBuilder();
-            sb.append("Titulo: " + textView.getText() + "\n");
-            sb.append("Género: " + movieGenres.getText() + "\n");
+            sb.append(getResources().getString(R.string.share_tittle) + textView.getText() + "\n");
+            sb.append(getResources().getString(R.string.share_genre) + movieGenres.getText() + "\n");
             //sb.append(url.toString());
             shareIntent.putExtra(Intent.EXTRA_TEXT, sb.toString());
             shareIntent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.share_action_subject_prefix) + movie.getTitle());

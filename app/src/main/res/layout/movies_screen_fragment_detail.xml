@@ -106,7 +106,6 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif-condensed"
-                android:text="@string/hello_world"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:textStyle="bold"/>
 
@@ -138,7 +137,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/movies_screen_fragment_detail_release_label_tv"
                 android:fontFamily="sans-serif-light"
-                android:text="@string/hello_world"
                 android:textAppearance="?android:textAppearanceSmall"/>
 
             <TextView
@@ -146,7 +144,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="sans-serif-condensed"
-                android:text="@string/hello_world"
                 android:layout_below="@+id/movies_screen_fragment_detail_release"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:textColor="@color/grey_700" />

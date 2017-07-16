@@ -5,31 +5,31 @@
         <item
             android:id="@+id/nav_movies"
             android:icon="@drawable/ic_videocam_black_24dp"
-            android:title="Movies / Filmes" />
+            android:title="@string/main_screen_movies" />
         <item
             android:id="@+id/nav_tv_shows"
             android:icon="@drawable/ic_tv_black_24dp"
-            android:title="TV Shows / Series de TV" />
+            android:title="@string/main_screen_tv_shows" />
         <item
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_search_black_24dp"
-            android:title="Search / Pesquisar" />
+            android:title="@string/main_screen_search" />
     </group>
 
-    <item android:title="Configurations">
+    <item android:title="@string/main_screen_configurations">
         <menu>
-            <item
+            <!--item
                 android:id="@+id/nav_settings"
                 android:icon="@drawable/ic_settings_black_24dp"
-                android:title="Settings / Configurações" />
+                android:title="@string/main_screen_configurations" /-->
             <item
                 android:id="@+id/nav_info"
                 android:icon="@drawable/ic_info_black_24dp"
-                android:title="Contacts / Contactos" />
+                android:title="@string/main_screen_contacts" />
             <item
                 android:id="@+id/nav_close"
                 android:icon="@drawable/ic_power_settings_new_black_24dp"
-                android:title="Close / Sair" />
+                android:title="@string/main_screen_close" />
         </menu>
     </item>
 

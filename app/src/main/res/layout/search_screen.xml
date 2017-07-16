@@ -7,13 +7,13 @@
 
     <EditText
         android:id="@+id/search_screen_text"
-        android:hint="Texto a pesquisar"
+        android:hint="@string/search_screen_find_box_hint_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/search_screen_button"
-        android:text="Pesquisar"
+        android:text="@string/search_screen_find_button_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

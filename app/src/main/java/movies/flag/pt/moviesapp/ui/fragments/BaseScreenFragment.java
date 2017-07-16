@@ -12,7 +12,6 @@ import android.support.annotation.Nullable;
 import movies.flag.pt.moviesapp.constants.PreferenceIds;
 import movies.flag.pt.moviesapp.helpers.NetworkHelper;
 import movies.flag.pt.moviesapp.helpers.SharedPreferencesHelper;
-import movies.flag.pt.moviesapp.ui.screens.MainScreen;
 import movies.flag.pt.moviesapp.utils.DLog;
 
 /**
@@ -24,7 +23,6 @@ public abstract class BaseScreenFragment extends Fragment{
     //region: Fields Declaration
     public static final int FIVE_MINUTES = 1000 * 60 * 5;
     protected final String tag = getClass().getSimpleName();
-    protected MainScreen mainScreen;
     protected NetworkChangeBroadcastReceiver networkChangeBroadcastReceiver;
     //endregion
 
@@ -33,8 +31,6 @@ public abstract class BaseScreenFragment extends Fragment{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DLog.d(tag, "onCreate");
-
-        //mainScreen = (MainScreen) getActivity();
 
         networkChangeBroadcastReceiver = new NetworkChangeBroadcastReceiver();
         getActivity().registerReceiver(networkChangeBroadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));

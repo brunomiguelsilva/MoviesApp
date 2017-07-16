@@ -1,47 +1,49 @@
 <resources>
+    <!-- app parameters -->
     <string name="app_name">Filmes Flag</string>
     <string name="title_main_screen">Filmes Flag</string>
     <string name="language">pt</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!-- navigation drawer -->
+    <string name="navigation_drawer_open">Abrir barra de navegação</string>
+    <string name="navigation_drawer_close">Fechar barra de navegação</string>
 
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_login_screen">Sign in</string>
+    <!-- Main Screen -->
+    <string name="main_screen_movies">Filmes</string>
+    <string name="main_screen_tv_shows">Series de TV</string>
+    <string name="main_screen_search">Pesquisar</string>
+    <string name="main_screen_contacts">Contactos</string>
+    <string name="main_screen_close">Sair</string>
+    <string name="main_screen_configurations">Configurações</string>
 
-    <string name="action_share">Partilhar</string>
+    <!-- Search Screen -->
+    <string name="action_search">Pesquisar filmes...</string>
+    <string name="search_screen_find_box_hint_text">Texto a pesquisar</string>
+    <string name="search_screen_find_button_text">Pesquisar</string>
 
-    <string name="first_time">Primeiro Arranque = %b</string>
+    <!-- Detail Image Full Screen -->
+    <string name="detail_image_full_screen_cover_image" translatable="false">Imagem</string>
+
+    <!-- Fragment Detail Screen -->
     <string name="label_release_date">Data de Lançamento</string>
+    <string name="message_no_trailer">"Sem trailer para partilhar "</string>
+    <string name="title_share_action">Partilhar trailer</string>
+    <string name="share_action_subject_prefix">"Veja este trailer "</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="sort_popularity">popularity</string>
-    <string name="sort_rating">rating</string>
-    <string name="title_activity_movie_detail">MovieDetailActivity</string>
-    <string name="key_sort_method_pref">sort.method.pref</string>
-    <string name="key_sort_method_current">sort.method.current</string>
-    <string name="message_no_trailer">"No trailer to share for "</string>
-    <string name="title_share_action">Share trailer</string>
-    <string name="share_action_subject_prefix">"Check out this trailer for "</string>
-    <string name="transition_poster">transition_movie_poster</string>
+    <!-- shared elements -->
+    <string name="share_tittle">Título: </string>
+    <string name="share_genre">Género: </string>
+    <string name="cover_image" translatable="false">Imagem</string>
 
+    <!-- toast texts -->
     <string name="toast_error_loading_image">Erro a carregar imagem</string>
     <string name="toast_clicked">Toque</string>
     <string name="toast_long_clicked">Toque Longo</string>
 
-    <!-- shared elements -->
-    <string name="movie_details" translatable="false">movie_details</string>
-    <string name="collection_details" translatable="false">collection_details</string>
-    <string name="transition_search_back" translatable="false">transition_search_back</string>
-    <string name="collection_name" translatable="false">collection_name</string>
-    <string name="cover_name" translatable="false">cover_name</string>
-    <string name="cover_image" translatable="false">cover_image</string>
-
+    <!-- others -->
+    <string name="action_settings">Configurações</string>
+    <string name="first_time">Primeiro Arranque = %b</string>
     <string name="action_about">Acerca</string>
-    <string name="action_search">Procurar filmes...</string>
     <string name="action_close_app">Fechar aplicação?</string>
     <string name="action_yes">SIM</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
