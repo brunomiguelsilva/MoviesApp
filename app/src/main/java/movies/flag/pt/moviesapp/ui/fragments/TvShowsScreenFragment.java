@@ -39,6 +39,7 @@ public class TvShowsScreenFragment extends BaseScreenFragment {
     private static final String KEY_PAGE_SELECTION = "Page_Selection";
     private static final String KEY_LIST_SELECTION = "Page_Selection";
     private static final int FIRST_PAGE = 1;
+    private final int LAST_UPDATE_TIME = 15 * 1000;
 
 
     private RelativeLayout rootView;
@@ -175,7 +176,7 @@ public class TvShowsScreenFragment extends BaseScreenFragment {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
                 String dateAsString = dateFormat.format(new Date(currentTime));
 
-                Snackbar.make(rootView, Long.toString(currentTime), Snackbar.LENGTH_LONG).show();
+                Snackbar.make(rootView, getString(R.string.last_update) + " " + dateAsString, LAST_UPDATE_TIME).show();
 
                 tvShows = tvShowsScreenResponse.getResults();
                 currentPage = tvShowsScreenResponse.getPage();
@@ -195,7 +196,8 @@ public class TvShowsScreenFragment extends BaseScreenFragment {
                             tvShow.getFirstAirDate(),
                             TextUtils.join(", ", tvShow.getTvShowGenres()),
                             tvShow.getPopularity(),
-                            tvShow.getVoteAverage()
+                            tvShow.getVoteAverage(),
+                            dateAsString
                     );
                     tvShowDbEntity.save(); // Save to database
                 }
@@ -222,6 +224,7 @@ public class TvShowsScreenFragment extends BaseScreenFragment {
 
                 tvShows = new ArrayList<>();
 
+                String dateAsString = "";
                 for (TvShowDbEntity tvShowEntity : list) {
                     TvShow tvShow = new TvShow();
                     tvShow.setName(tvShowEntity.getTitle());
@@ -230,7 +233,9 @@ public class TvShowsScreenFragment extends BaseScreenFragment {
                     tvShow.setPopularity(tvShowEntity.getPopularity());
                     tvShow.setVoteAverage(tvShowEntity.getVote_average());
                     tvShows.add(tvShow);
+                    dateAsString = tvShowEntity.getUpdate_date();
                 }
+                Snackbar.make(rootView, getString(R.string.last_update) + " " + dateAsString, LAST_UPDATE_TIME).show();
                 adapter = new TvShowsListAdapter(getActivity(), tvShows);
                 listView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();

@@ -18,6 +18,7 @@ public class MovieDbEntity extends SugarRecord implements Parcelable {
     public static final String GENRE_IDS_COLUMN_NAME = "genre_ids";
     public static final String POPULARITY_COLUMN_NAME = "popularity";
     public static final String VOTE_AVERAGE_COLUMN_NAME = "vote_average";
+    public static final String UPDATE_DATE_COLUMN_NAME = "update_date";
 
     String title;
     String overview;
@@ -25,6 +26,7 @@ public class MovieDbEntity extends SugarRecord implements Parcelable {
     String genre_ids;
     Double popularity;
     Double vote_average;
+    String update_date;
 
     // Default constructor is necessary for SugarRecord
     public MovieDbEntity(){
@@ -35,7 +37,8 @@ public class MovieDbEntity extends SugarRecord implements Parcelable {
                          String release_date,
                          String genre_ids,
                          Double popularity,
-                         Double vote_average
+                         Double vote_average,
+                         String update_date
     ){
         this.title = title;
         this.overview = overview;
@@ -43,6 +46,7 @@ public class MovieDbEntity extends SugarRecord implements Parcelable {
         this.genre_ids = genre_ids;
         this.popularity = popularity;
         this.vote_average = vote_average;
+        this.update_date = update_date;
     }
 
     public String getTitle() {
@@ -93,6 +97,14 @@ public class MovieDbEntity extends SugarRecord implements Parcelable {
         this.vote_average = vote_average;
     }
 
+    public String getUpdate_date() {
+        return update_date;
+    }
+
+    public void setUpdate_date(String update_date) {
+        this.update_date = update_date;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -106,6 +118,7 @@ public class MovieDbEntity extends SugarRecord implements Parcelable {
         dest.writeString(this.genre_ids);
         dest.writeValue(this.popularity);
         dest.writeValue(this.vote_average);
+        dest.writeString(this.update_date);
     }
 
     protected MovieDbEntity(Parcel in) {
@@ -115,6 +128,7 @@ public class MovieDbEntity extends SugarRecord implements Parcelable {
         this.genre_ids = in.readString();
         this.popularity = (Double) in.readValue(Double.class.getClassLoader());
         this.vote_average = (Double) in.readValue(Double.class.getClassLoader());
+        this.update_date = in.readString();
     }
 
     public static final Creator<MovieDbEntity> CREATOR = new Creator<MovieDbEntity>() {

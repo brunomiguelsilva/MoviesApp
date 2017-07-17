@@ -43,6 +43,7 @@ public class MoviesScreenFragment extends BaseScreenFragment {
     private static final String KEY_LIST_SELECTION = "Page_Selection";
     private static final String KEY_SEARCH = "Search";
     private static final int FIRST_PAGE = 1;
+    private final int LAST_UPDATE_TIME = 15 * 1000;
 
 
     private RelativeLayout rootView;
@@ -202,7 +203,7 @@ public class MoviesScreenFragment extends BaseScreenFragment {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
                 String dateAsString = dateFormat.format(new Date(currentTime));
 
-                Snackbar.make(rootView, Long.toString(currentTime), Snackbar.LENGTH_LONG).show();
+                Snackbar.make(rootView, getString(R.string.last_update) + " " + dateAsString, LAST_UPDATE_TIME).show();
 
                 movies = moviesResponse.getMovies();
                 currentPage = moviesResponse.getPage();
@@ -222,13 +223,14 @@ public class MoviesScreenFragment extends BaseScreenFragment {
                             movie.getReleaseDate(),
                             TextUtils.join(", ", movie.getMovieGenres()),
                             movie.getPopularity(),
-                            movie.getVoteAverage()
+                            movie.getVoteAverage(),
+                            dateAsString
                     );
                     movieDbEntity.save(); // Save to database
                 }
 
-                List<MovieDbEntity> books = MovieDbEntity.listAll(MovieDbEntity.class);
-                DLog.d(tag, "Total de Registos: " + books.size());
+                List<MovieDbEntity> list = MovieDbEntity.listAll(MovieDbEntity.class);
+                DLog.d(tag, "Total de Registos: " + list.size());
 
                 listView.setAdapter(adapter);
                 DLog.d(tag, "currentFirstVisibleItem: " + String.valueOf(currentFirstVisibleItem));
@@ -248,6 +250,7 @@ public class MoviesScreenFragment extends BaseScreenFragment {
 
                 movies = new ArrayList<>();
 
+                String dateAsString = "";
                 for (MovieDbEntity movieEntity : list) {
                     Movie movie = new Movie();
                     movie.setTitle(movieEntity.getTitle());
@@ -256,7 +259,9 @@ public class MoviesScreenFragment extends BaseScreenFragment {
                     movie.setPopularity(movieEntity.getPopularity());
                     movie.setVoteAverage(movieEntity.getVote_average());
                     movies.add(movie);
+                    dateAsString = movieEntity.getUpdate_date();
                 }
+                Snackbar.make(rootView, getString(R.string.last_update) + " " + dateAsString, LAST_UPDATE_TIME).show();
                 adapter = new MoviesListAdapter(getActivity(), movies);
                 listView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
@@ -284,7 +289,7 @@ public class MoviesScreenFragment extends BaseScreenFragment {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
                 String dateAsString = dateFormat.format(new Date(currentTime));
 
-                Snackbar.make(rootView, Long.toString(currentTime), Snackbar.LENGTH_LONG).show();
+                Snackbar.make(rootView, getString(R.string.last_update) + " " + dateAsString, LAST_UPDATE_TIME).show();
 
                 movies = moviesResponse.getMovies();
                 currentPage = moviesResponse.getPage();
@@ -292,25 +297,11 @@ public class MoviesScreenFragment extends BaseScreenFragment {
 
                 if (moviesResponse.getPage() == FIRST_PAGE) {
                     adapter = new MoviesListAdapter(getActivity(), movies);
-                    List<MovieDbEntity> books = MovieDbEntity.listAll(MovieDbEntity.class);
+                    List<MovieDbEntity> list = MovieDbEntity.listAll(MovieDbEntity.class);
                     MovieDbEntity.deleteAll(MovieDbEntity.class);
                 } else {
                     adapter.addAll(movies);
                 }
-
-                for (Movie movie : movies) {
-                    MovieDbEntity movieDbEntity = new MovieDbEntity(movie.getTitle(),
-                            movie.getOverview(),
-                            movie.getReleaseDate(),
-                            TextUtils.join(", ", movie.getMovieGenres()),
-                            movie.getPopularity(),
-                            movie.getVoteAverage()
-                    );
-                    movieDbEntity.save(); // Save to database
-                }
-
-                List<MovieDbEntity> books = MovieDbEntity.listAll(MovieDbEntity.class);
-                DLog.d(tag, "Total de Registos: " + books.size());
 
                 listView.setAdapter(adapter);
                 DLog.d(tag, "currentFirstVisibleItem: " + String.valueOf(currentFirstVisibleItem));
